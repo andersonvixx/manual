@@ -1,0 +1,90 @@
+// Aula 3 - Enviar Notificações pelo Telegram
+
+# Antes de mais nada, precisamos criar um Bot em nosso Telegram e pegar o seu token:
+
+# Veja mais no link abaixo para ver como criar um bot:
+
+http://web.archive.org/web/20170504031935/https://blog.rodrigolira.net/2015/07/07/criando-um-bot-do-telegram-1/
+
+# Depois de criar, execute esses comandos:
+
+/newbot
+
+/start @testebot
+
+# Execute o comando no terminal de seu Linux:
+
+curl "https://api.telegram.org/bot<TOKEN>/getUpdates"
+
+# Vamos instalar todas as dependências necessárias em seu sistema:
+
+#Ubuntu/Debian:
+
+# apt-get install python3-pip
+
+# CentOS/RHEL:
+
+yum install python3-pip
+
+# Agora, vamos instalar o programa:
+
+pip3 install pyTelegramBotAPI
+
+# Agora, vamos criar o nosso arquivo de configuração com o Token de nosso bot:
+
+vim /usr/lib/zabbix/alertscripts/telegram.sh
+
+============================================================
+
+#!/usr/bin/env python3
+ 
+import telebot,sys
+ 
+BOT_TOKEN='TOKENAQUI'
+DESTINATION=sys.argv[1]
+SUBJECT=sys.argv[2]
+MESSAGE=sys.argv[3]
+ 
+MESSAGE = MESSAGE.replace('/n','\n')
+tb = telebot.TeleBot(BOT_TOKEN)
+tb.send_message(DESTINATION,SUBJECT + '\n' + MESSAGE)
+
+===========================================================
+
+# Depois deixe ele de modo executavel:
+
+chmod +x telegram.sh
+chown -R zabbix telegram.sh
+
+# Depois mande uma mensagem para o bot com esse comando dentro do grupo já cadastrado o seu bot:
+
+/start@testezabbix_bot
+
+# E pege o ID dele pelo comando do curl
+
+# Depois faça o teste enviando uma msg:
+
+./telegram.sh <ID_USER> Teste Mensagem
+
+# Agora temos que cadastrar esse script em nosso Zabbix com esses parâmetros em tipos de mídia:
+
+{ALERT.SENDTO}
+{ALERT.SUBJECT}
+{ALERT.MESSAGE}
+
+# Links de referência:
+
+https://github.com/eternnoir/pyTelegramBotAPI
+https://pypi.python.org/pypi/pyTelegramBotAPI/3.6.0
+
+
+
+
+
+
+
+
+
+
+
+
