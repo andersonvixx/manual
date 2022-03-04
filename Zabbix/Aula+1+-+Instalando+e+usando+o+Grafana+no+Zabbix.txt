@@ -1,0 +1,63 @@
+// Aula 4 - Instalando e usando o Grafana no Zabbix
+
+https://grafana.com/
+
+http://play.grafana-zabbix.org/ 
+
+https://grafana.com/grafana/download?platform=linux
+
+# wget https://dl.grafana.com/oss/release/grafana_7.1.2_amd64.deb 
+
+# apt-get install -y adduser libfontconfig
+
+# dpkg -i grafana_*_amd64.deb
+
+Inicie o Grafana com o comando abaixo:
+
+# sudo /bin/systemctl daemon-reload
+# sudo /bin/systemctl enable grafana-server
+
+# sudo /bin/systemctl start grafana-server
+
+# grafana-cli plugins list-remote
+
+# grafana-cli plugins list-remote | grep zabbix
+
+# grafana-cli plugins install alexanderzobnin-zabbix-app
+
+# service grafana-server restart
+
+Entre no Grafana na URL 
+
+http://IP-SERVIDOR:3000 
+
+O usuário é "admin" e a senha padrão é "admin".
+
+Name: Zabbix
+
+Type: Zabbix
+
+URL: http://IP-Servidor/zabbix/api_jsonrpc.php
+
+Access : Server (default)
+
+Vá em "Zabbix API details":
+
+Username: Admin
+
+Password: zabbix
+
+Trends: Marcado
+
+
+
+
+
+
+
+
+
+
+
+
+

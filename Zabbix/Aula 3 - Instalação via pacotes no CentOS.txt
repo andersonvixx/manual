@@ -1,0 +1,111 @@
+// Aula 3 - Instalação via pacotes no CentOS
+
+Nessa aula, vamos usar o CentOS na instalção via pacotes com o Zabbix 5.0 LTS. Nosso ambiente está assim:
+
+➔ Zabbix 5.0 LTS
+➔ Sistema CentOS 8
+➔ 2 CPU
+➔ 2 GB RAM
+
+Atualize o seu sistema:
+
+# yum update
+
+Desabilite o SELinux, editando o arquivo /etc/selinux/config:
+
+# vim /etc/selinux/config
+
+SELINUX=disabled
+
+Para as configurações terem efeito sem a necessidade de reiniciar o servidor, execute o seguinte comando:
+
+# setenforce 0
+
+Agora, vamos desativar o firewall:
+
+# systemctl stop firewalld ; systemctl disable firewalld
+
+Agora, vamos instalar as nossas dependências necessárias:
+
+# yum -y install wget vim
+
+# wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+# rpm -ivh epel-release-latest-8.noarch.rpm
+
+# rpm -i https://repo.zabbix.com/zabbix/5.0/rhel/8/x86_64/zabbix-release-5.0-1.el8.noarch.rpm
+
+# yum install zabbix-server-mysql zabbix-web-mysql zabbix-agent zabbix-apache-conf
+
+# rpm -ivh https://repo.mysql.com//mysql80-community-release-el8-1.noarch.rpm
+
+# yum -y install @mysql
+
+# systemctl start mysqld
+
+# systemctl enable --now mysqld
+
+# systemctl status mysqld
+
+Agora, vamos configurar a nossa senha do root, e algumas outras configurações básicas de segurança:
+
+# mysql_secure_installation
+
+# mysql -uroot -p
+
+(sem senha criada)!
+
+mysql> create database zabbix character set utf8 collate utf8_bin;
+
+mysql> create user 'zabbix'@'localhost' identified by 'zabbix';
+
+mysql> grant all privileges on zabbix.* to 'zabbix'@'localhost';
+
+mysql> quit;
+
+Agora precisamos configurar a base de dados do Zabbix no MySQL e importar os schemas em nosso BD:
+
+# zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix 
+
+Vamos ativar os serviços do Zabbix no CentOS 
+
+Agora editamos o arquivo de configuração
+
+# vim /etc/zabbix/zabbix_server.conf
+
+DBHost=localhost
+DBName=zabbix
+DBUser=zabbix
+DBPassword=zabbix
+
+Já instalamos a base de dados e do servidor Zabbix. O próximo passo é configurar e instalar a interface web.
+
+# vim /etc/php-fpm.d/zabbix.conf
+
+php_value date.timezone America/Sao_Paulo
+
+Agora, vamos dar um restart em todos os serviços:
+
+# systemctl restart zabbix-server zabbix-agent httpd
+
+# systemctl enable zabbix-server zabbix-agent httpd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

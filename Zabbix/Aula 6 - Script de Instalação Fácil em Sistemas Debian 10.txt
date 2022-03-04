@@ -1,0 +1,27 @@
+// Aula 6 - Script de Instalação Fácil em Sistemas Debian 10
+
+Nessa aula, vamos usar o Debian 10 para fazer a instalação
+do Zabbix Server 5. A nossa configuração é a seguinte:
+
+➔ Debian 10
+➔ Zabbix 5.x LTS
+➔ Banco de dados MySQL 8
+➔ Script de instalação fácil com apenas um comando
+
+Vamos baixar o nosso arquivo de instalação chamado de install.sh e rodar com esse comando:
+
+# wget https://raw.githubusercontent.com/Mazuco/Zabbix/master/installdebian10zb5.sh ; bash installdebian10zb5.sh
+
+Com esse script, ele vai fazer TODA a instalação do seu Zabbix Server, Agent, e todas as outras configurações de modo fácil e descomplicado.
+
+A senha do root do MySQL deve ser o: Senha123! 
+
+A senha do usuário zabbix é o: Z@bbix123
+
+Depois de instalar é só nevegar no IP de sua máquina e entrar no diretório do Zabbix para acessar o seu sistema.
+
+
+
+
+
+

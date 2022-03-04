@@ -1,0 +1,44 @@
+// Aula 7 - Mudar o idioma da interface Web do Zabbix
+
+# locale -a
+
+# cat /usr/share/i18n/SUPPORTED
+
+# locale-gen pt_BR.UTF-8
+
+# dpkg-reconfigure locales
+
+# systemctl restart apache2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
