@@ -1,0 +1,24 @@
+dnf install epel-release -y
+dnf install -y https://ftp.postgresql.org/pub/pgadmin/pgadmin4/yum/pgadmin4-redhat-repo-1-1.noarch.rpm
+
+dnf remove -y pgdg-redhat-repo
+
+
+dnf makecache -y
+yum install pgadmin4 -y
+
+
+systemctl start httpd
+systemctl enable httpd
+systemctl status httpd
+
+/usr/pgadmin4/bin/setup-web.sh
+
+
+firewall-cmd --permanent --zone public --add-port 80/tcp
+firewall-cmd --permanent --zone public --add-port 443/tcp
+firewall-cmd --reload
+
+http://SERVER_IP/pgadmin4
+OR
+http://localhost/pgadmin4
