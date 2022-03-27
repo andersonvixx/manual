@@ -16,7 +16,7 @@ You can also check out [wireguard-install](https://github.com/angristan/wireguar
 First, get the script and make it executable:
 
 ```bash
-curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+curl -O https://raw.githubusercontent.com/andersonvixx/manual/main/OpenVPN/openvpn-install.sh
 chmod +x openvpn-install.sh
 ```
 
